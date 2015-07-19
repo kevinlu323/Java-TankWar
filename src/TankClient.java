@@ -8,7 +8,7 @@ public class TankClient extends Frame{
 	public static final int GAME_WIDTH = 800;
 	public static final int GAME_HEIGHT = 600;
 	
-	Tank myTank = new Tank(50,50,this,true);
+	Tank myTank = new Tank(50,50,this,true, Tank.Direction.STOP);
 	
 	List<Missile> missiles = new ArrayList<Missile>();
 	List<Explode> explodes = new ArrayList<Explode>();
@@ -19,7 +19,7 @@ public class TankClient extends Frame{
 	public void paint(Graphics g) {
 		g.drawString("missiles count: " + missiles.size(), 10, 50);
 		g.drawString("explodes count: " + explodes.size(), 10, 70);
-		g.drawString("tanks count: " + tanks.size(), 10, 90);
+		g.drawString("tanks    count: " + tanks.size(), 10, 90);
 		
 		for(int i=0; i<tanks.size(); i++){
 			Tank t = tanks.get(i);
@@ -29,6 +29,7 @@ public class TankClient extends Frame{
 			Missile m =missiles.get(i);
 			//if(!m.isLive()) missiles.remove(m); //Way to remove dead missiles
 			m.hitTanks(tanks);
+			m.hitTank(myTank);
 			m.draw(g);
 		}
 		
@@ -53,7 +54,7 @@ public class TankClient extends Frame{
 	}
 	public void launchFrame(){
 		for(int i =0; i< 10; i++){
-			tanks.add(new Tank((50 +40*(i+1)), 50, this,false));
+			tanks.add(new Tank((50 +40*(i+1)), 50, this,false, Tank.Direction.D));
 		}
 		this.setLocation(400, 300);
 		this.setSize(GAME_WIDTH, GAME_HEIGHT);

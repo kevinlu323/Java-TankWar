@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Random;
 
 public class Tank {
 	public static final int XSPEED=5;
@@ -7,6 +8,9 @@ public class Tank {
 	
 	public static final int WIDTH = 30;
 	public static final int HEIGHT = 30;
+	
+	public static Random r = new Random();
+	private int step = r.nextInt(20)+5;
 	
 	TankClient tc = null;
 	
@@ -25,14 +29,17 @@ public class Tank {
 		this.good = good;
 	}
 	
-	public Tank(int x, int y, TankClient tc, boolean good){
+	public Tank(int x, int y, TankClient tc, boolean good, Direction dir){
 		this(x,y,good);
 		this.tc = tc;
+		this.dir = dir;
 	}
 	
 	public void draw(Graphics g){
 		if(!live) {
-			tc.tanks.remove(this);
+			if(!good){
+				tc.tanks.remove(this);
+			}
 			return;
 		}
 		Color c = g.getColor();
@@ -112,6 +119,18 @@ public class Tank {
 		if(y<30) y=30;
 		if(x+Tank.WIDTH>TankClient.GAME_WIDTH) x = TankClient.GAME_WIDTH-Tank.WIDTH;
 		if(y+Tank.HEIGHT>TankClient.GAME_HEIGHT) y = TankClient.GAME_HEIGHT-Tank.HEIGHT;
+		
+		if(!good){
+			Direction[] dirs = Direction.values();
+			if(step==0){
+				step = r.nextInt(20) + 5;
+				int rn = r.nextInt(dirs.length);
+				dir = dirs[rn];
+			}
+			step--;
+			
+			if(r.nextInt(40)>38) this.fire();
+		}
 	}
 	
 	public void keyPressed(KeyEvent e){
@@ -156,9 +175,10 @@ public class Tank {
 	}
 	
 	public Missile fire(){
+		if(!live) return null;
 		int x = this.x +Tank.WIDTH/2 - Missile.WIDTH/2;
 		int y = this.y + Tank.HEIGHT/2 - Missile.HEIGHT/2;
-		Missile m = new Missile(x, y, ptDir,tc);
+		Missile m = new Missile(x, y, ptDir,tc,good);
 		tc.missiles.add(m);
 		return m;
 	}
@@ -185,5 +205,9 @@ public class Tank {
 
 	public void setLive(boolean live) {
 		this.live = live;
+	}
+	
+	public boolean isGood(){
+		return good;
 	}
 }
