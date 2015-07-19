@@ -11,6 +11,7 @@ public class Tank {
 	TankClient tc = null;
 	
 	private boolean good;
+	private boolean live = true;
 	
 	private int x, y;
 	private boolean bL = false, bU = false, bR = false, bD = false;
@@ -30,6 +31,7 @@ public class Tank {
 	}
 	
 	public void draw(Graphics g){
+		if(!live) return;
 		Color c = g.getColor();
 		if(good) g.setColor(Color.RED);
 		else g.setColor(Color.BLUE);
@@ -168,5 +170,17 @@ public class Tank {
 		else if(!bL && !bU && !bR && bD) dir = Direction.D;
 		else if(bL && !bU && !bR && bD) dir = Direction.LD;
 		else if(!bL && !bU && !bR && !bD) dir = Direction.STOP;
+	}
+	
+	public Rectangle getRect(){
+		return new Rectangle(this.x, this.y, this.WIDTH, this.HEIGHT);
+	}
+
+	public boolean isLive() {
+		return live;
+	}
+
+	public void setLive(boolean live) {
+		this.live = live;
 	}
 }
