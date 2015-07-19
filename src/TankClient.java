@@ -74,6 +74,5 @@ public class TankClient extends Frame{
 		public void keyReleased(KeyEvent e) {
 			myTank.keyReleased(e);
 		}
-		
 	}
 }
