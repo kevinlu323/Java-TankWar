@@ -9,20 +9,26 @@ public class TankClient extends Frame{
 	public static final int GAME_HEIGHT = 600;
 	
 	Tank myTank = new Tank(50,50,this,true);
-	Tank enemyTank = new Tank(100,100,this,false);
 	
 	List<Missile> missiles = new ArrayList<Missile>();
 	List<Explode> explodes = new ArrayList<Explode>();
+	List<Tank> tanks = new ArrayList<Tank>();
 	
 	Image offScreenImage = null;
 
 	public void paint(Graphics g) {
 		g.drawString("missiles count: " + missiles.size(), 10, 50);
 		g.drawString("explodes count: " + explodes.size(), 10, 70);
+		g.drawString("tanks count: " + tanks.size(), 10, 90);
+		
+		for(int i=0; i<tanks.size(); i++){
+			Tank t = tanks.get(i);
+			t.draw(g);
+		}
 		for(int i=0;i<missiles.size();i++){
 			Missile m =missiles.get(i);
 			//if(!m.isLive()) missiles.remove(m); //Way to remove dead missiles
-			m.hitTank(enemyTank);
+			m.hitTanks(tanks);
 			m.draw(g);
 		}
 		
@@ -32,7 +38,6 @@ public class TankClient extends Frame{
 		}
 		
 		myTank.draw(g);
-		enemyTank.draw(g);
 	}
 	public void update(Graphics g) { //double buffer to avoid blinking
 		if(offScreenImage == null){
@@ -47,6 +52,9 @@ public class TankClient extends Frame{
 		g.drawImage(offScreenImage, 0, 0, null);
 	}
 	public void launchFrame(){
+		for(int i =0; i< 10; i++){
+			tanks.add(new Tank((50 +40*(i+1)), 50, this,false));
+		}
 		this.setLocation(400, 300);
 		this.setSize(GAME_WIDTH, GAME_HEIGHT);
 		this.setTitle("Tank War");
@@ -71,7 +79,7 @@ public class TankClient extends Frame{
 			while(true){
 				repaint();
 				try {
-					Thread.sleep(20);
+					Thread.sleep(17);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

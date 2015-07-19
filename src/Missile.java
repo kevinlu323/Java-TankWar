@@ -1,6 +1,8 @@
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.util.List;
+import java.awt.Rectangle;
 
 public class Missile {
 	public static final int XSPEED = 10;
@@ -90,6 +92,15 @@ public class Missile {
 			Explode e = new Explode(this.x, this.y, tc);
 			tc.explodes.add(e);
 			return true;
+		}
+		return false;
+	}
+	
+	public boolean hitTanks(List<Tank> tanks){
+		for(int i=0; i<tanks.size(); i++){
+			if(this.hitTank(tanks.get(i))){
+				return true;
+			}
 		}
 		return false;
 	}
