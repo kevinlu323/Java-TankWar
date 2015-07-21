@@ -218,6 +218,18 @@ public class Tank {
 			stay();
 		}
 	}
+	
+	public void collidesWithTanks(java.util.List<Tank> tanks){
+		for (int i =0; i<tanks.size(); i++){
+			Tank t = tanks.get(i);
+			if(this != t){
+				if(this.live && t.isLive() && this.getRect().intersects(t.getRect())){
+					this.stay();
+					t.stay();
+				}
+			}
+		}
+	}
 
 	public boolean isLive() {
 		return live;

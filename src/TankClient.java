@@ -28,6 +28,7 @@ public class TankClient extends Frame{
 			Tank t = tanks.get(i);
 			t.collidesWithWall(w1);
 			t.collidesWithWall(w2);
+			t.collidesWithTanks(tanks);
 			t.draw(g);
 		}
 		for(int i=0;i<missiles.size();i++){
@@ -64,7 +65,7 @@ public class TankClient extends Frame{
 		g.drawImage(offScreenImage, 0, 0, null);
 	}
 	public void launchFrame(){
-		for(int i =0; i< 20; i++){
+		for(int i =0; i< 15; i++){
 			tanks.add(new Tank((50 +40*(i+1)), 50, this,false, Tank.Direction.D));
 		}
 		this.setLocation(400, 300);
