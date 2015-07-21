@@ -8,11 +8,14 @@ public class TankClient extends Frame{
 	public static final int GAME_WIDTH = 800;
 	public static final int GAME_HEIGHT = 600;
 	
-	Tank myTank = new Tank(50,50,this,true, Tank.Direction.STOP);
+	Tank myTank = new Tank(400,500,this,true, Tank.Direction.STOP);
 	
 	List<Missile> missiles = new ArrayList<Missile>();
 	List<Explode> explodes = new ArrayList<Explode>();
 	List<Tank> tanks = new ArrayList<Tank>();
+	
+	Wall w1 = new Wall(250, 200, 300, 20, this);
+	Wall w2 = new Wall(150, 300, 20, 200, this);
 	
 	Image offScreenImage = null;
 
@@ -23,6 +26,8 @@ public class TankClient extends Frame{
 		
 		for(int i=0; i<tanks.size(); i++){
 			Tank t = tanks.get(i);
+			t.collidesWithWall(w1);
+			t.collidesWithWall(w2);
 			t.draw(g);
 		}
 		for(int i=0;i<missiles.size();i++){
@@ -30,6 +35,8 @@ public class TankClient extends Frame{
 			//if(!m.isLive()) missiles.remove(m); //Way to remove dead missiles
 			m.hitTanks(tanks);
 			m.hitTank(myTank);
+			m.hitWall(w1);
+			m.hitWall(w2);
 			m.draw(g);
 		}
 		
@@ -39,6 +46,10 @@ public class TankClient extends Frame{
 		}
 		
 		myTank.draw(g);
+		myTank.collidesWithWall(w1);
+		myTank.collidesWithWall(w2);
+		w1.draw(g);
+		w2.draw(g);
 	}
 	public void update(Graphics g) { //double buffer to avoid blinking
 		if(offScreenImage == null){
@@ -53,7 +64,7 @@ public class TankClient extends Frame{
 		g.drawImage(offScreenImage, 0, 0, null);
 	}
 	public void launchFrame(){
-		for(int i =0; i< 10; i++){
+		for(int i =0; i< 20; i++){
 			tanks.add(new Tank((50 +40*(i+1)), 50, this,false, Tank.Direction.D));
 		}
 		this.setLocation(400, 300);

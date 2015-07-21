@@ -11,6 +11,7 @@ public class Tank {
 	
 	public static Random r = new Random();
 	private int step = r.nextInt(20)+5;
+	private int oldX, oldY;
 	
 	TankClient tc = null;
 	
@@ -26,6 +27,8 @@ public class Tank {
 	public Tank(int x, int y, boolean good) {
 		this.x = x;
 		this.y = y;
+		this.oldX = x;
+		this.oldY = y;
 		this.good = good;
 	}
 	
@@ -79,6 +82,9 @@ public class Tank {
 	}
 	
 	void move(){
+		this.oldX = x;
+		this.oldY = y;
+		
 		switch (dir){
 		case L:
 			x -=XSPEED;
@@ -133,6 +139,11 @@ public class Tank {
 		}
 	}
 	
+	public void stay(){
+		x = oldX;
+		y = oldY;
+	}
+	
 	public void keyPressed(KeyEvent e){
 		int key = e.getKeyCode();
 		switch (key) {
@@ -155,6 +166,9 @@ public class Tank {
 	public void keyReleased(KeyEvent e){
 		int key = e.getKeyCode();
 		switch (key) {
+		case KeyEvent.VK_SHIFT:
+			this.live = true;
+			break;
 		case KeyEvent.VK_CONTROL:
 			fire();
 			break;
@@ -197,6 +211,12 @@ public class Tank {
 	
 	public Rectangle getRect(){
 		return new Rectangle(this.x, this.y, this.WIDTH, this.HEIGHT);
+	}
+	
+	public void collidesWithWall(Wall w){
+		if(this.live && this.getRect().intersects(w.getRect())){
+			stay();
+		}
 	}
 
 	public boolean isLive() {
