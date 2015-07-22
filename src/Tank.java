@@ -253,6 +253,15 @@ public class Tank {
 			}
 		}
 	}
+	
+	public boolean eatBlood(Blood b){
+		if(this.live && this.life < 100 && b.isLive() && this.getRect().intersects(b.getRect())){
+			life = 100;
+			b.setLive(false);
+			return true;
+		}
+		return false;
+	}
 
 	public boolean isLive() {
 		return live;
