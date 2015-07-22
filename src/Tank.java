@@ -17,6 +17,7 @@ public class Tank {
 	
 	private boolean good;
 	private boolean live = true;
+	private int life = 100;
 	
 	private int x, y;
 	private boolean bL = false, bU = false, bR = false, bD = false;
@@ -168,6 +169,7 @@ public class Tank {
 		switch (key) {
 		case KeyEvent.VK_SHIFT:
 			this.live = true;
+			this.life = 100;
 			break;
 		case KeyEvent.VK_CONTROL:
 			fire();
@@ -260,5 +262,13 @@ public class Tank {
 	
 	public boolean isGood(){
 		return good;
+	}
+
+	public int getLife() {
+		return life;
+	}
+
+	public void setLife(int life) {
+		this.life = life;
 	}
 }
