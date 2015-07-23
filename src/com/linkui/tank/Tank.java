@@ -1,13 +1,16 @@
+package com.linkui.tank;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class Tank {
 	public static final int XSPEED=5;
 	public static final int YSPEED=5;
 	
-	public static final int WIDTH = 30;
-	public static final int HEIGHT = 30;
+	public static final int WIDTH = 50;
+	public static final int HEIGHT = 50;
 	
 	public static Random r = new Random();
 	private int step = r.nextInt(20)+5;
@@ -25,6 +28,21 @@ public class Tank {
 	
 	private Direction dir = Direction.STOP;
 	private Direction ptDir = Direction.D;
+	
+	private static Toolkit tk = Toolkit.getDefaultToolkit();
+	private static Map<String, Image> imgs = new HashMap<String, Image>();
+	
+	//static code, run when the class is loaded.
+	static {
+		imgs.put("L", tk.getImage(Tank.class.getClassLoader().getResource("images/tankL.gif")));
+		imgs.put("LU", tk.getImage(Tank.class.getClassLoader().getResource("images/tankLU.gif")));
+		imgs.put("U", tk.getImage(Tank.class.getClassLoader().getResource("images/tankU.gif")));
+		imgs.put("RU", tk.getImage(Tank.class.getClassLoader().getResource("images/tankRU.gif")));
+		imgs.put("R", tk.getImage(Tank.class.getClassLoader().getResource("images/tankR.gif")));
+		imgs.put("RD", tk.getImage(Tank.class.getClassLoader().getResource("images/tankRD.gif")));
+		imgs.put("D", tk.getImage(Tank.class.getClassLoader().getResource("images/tankD.gif")));
+		imgs.put("LD", tk.getImage(Tank.class.getClassLoader().getResource("images/tankLD.gif")));
+	}
 	
 	public Tank(int x, int y, boolean good) {
 		this.x = x;
@@ -48,37 +66,34 @@ public class Tank {
 			return;
 		}
 		Color c = g.getColor();
-		if(good) g.setColor(Color.RED);
-		else g.setColor(Color.BLUE);
-		g.fillOval(x, y, WIDTH, HEIGHT);
 		if(good) bb.draw(g);
 		g.setColor(c);
 		move();
 		
 		switch (ptDir){
 		case L:
-			g.drawLine(x+Tank.WIDTH/2, y+Tank.HEIGHT/2, x, y+Tank.HEIGHT/2);
+			g.drawImage(imgs.get("L"), x, y, null);
 			break;
 		case LU:
-			g.drawLine(x+Tank.WIDTH/2, y+Tank.HEIGHT/2, x, y);
+			g.drawImage(imgs.get("LU"), x, y, null);
 			break;
 		case U:
-			g.drawLine(x+Tank.WIDTH/2, y+Tank.HEIGHT/2, x+Tank.WIDTH/2, y);
+			g.drawImage(imgs.get("U"), x, y, null);
 			break;
 		case RU:
-			g.drawLine(x+Tank.WIDTH/2, y+Tank.HEIGHT/2, x+Tank.WIDTH, y);
+			g.drawImage(imgs.get("RU"), x, y, null);
 			break;
 		case R:
-			g.drawLine(x+Tank.WIDTH/2, y+Tank.HEIGHT/2, x+Tank.WIDTH, y+Tank.HEIGHT/2);
+			g.drawImage(imgs.get("R"), x, y, null);
 			break;
 		case RD:
-			g.drawLine(x+Tank.WIDTH/2, y+Tank.HEIGHT/2, x+Tank.WIDTH, y+Tank.HEIGHT);
+			g.drawImage(imgs.get("RD"), x, y, null);
 			break;
 		case D:
-			g.drawLine(x+Tank.WIDTH/2, y+Tank.HEIGHT/2, x+Tank.WIDTH/2, y+Tank.HEIGHT);
+			g.drawImage(imgs.get("D"), x, y, null);
 			break;
 		case LD:
-			g.drawLine(x+Tank.WIDTH/2, y+Tank.HEIGHT/2, x, y+Tank.HEIGHT);
+			g.drawImage(imgs.get("LD"), x, y, null);
 			break;
 		}
 		

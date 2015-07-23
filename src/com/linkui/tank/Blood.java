@@ -1,3 +1,4 @@
+package com.linkui.tank;
 
 import java.awt.*;
 import java.util.Random;

@@ -1,3 +1,4 @@
+package com.linkui.tank;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
@@ -63,7 +64,7 @@ public class TankClient extends Frame{
 		}
 		Graphics gOffScreen = offScreenImage.getGraphics();
 		Color c = gOffScreen.getColor();
-		gOffScreen.setColor(Color.GREEN);
+		gOffScreen.setColor(Color.BLACK);
 		gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);//re-paint background
 		gOffScreen.setColor(c);
 		paint(gOffScreen);
@@ -71,7 +72,7 @@ public class TankClient extends Frame{
 	}
 	public void launchFrame(){
 		for(int i =0; i< 15; i++){
-			tanks.add(new Tank((50 +40*(i+1)), 50, this,false, Direction.D));
+			tanks.add(new Tank(52*(i), 50, this,false, Direction.D));
 		}
 		this.setLocation(400, 300);
 		this.setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -113,7 +114,7 @@ public class TankClient extends Frame{
 			myTank.keyReleased(e);
 			if(e.getKeyCode() == KeyEvent.VK_R){
 				for(int i =0; i< 15; i++){
-					tanks.add(new Tank((50 +40*(i+1)), 50, TankClient.this,false, Direction.D));
+					tanks.add(new Tank(52*(i), 50, TankClient.this,false, Direction.D));
 				}
 			}
 		}

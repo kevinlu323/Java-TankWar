@@ -1,3 +1,4 @@
+package com.linkui.tank;
 import java.awt.*;
 
 public class Wall {
@@ -13,7 +14,10 @@ public class Wall {
 	}
 	
 	public void draw(Graphics g){
+		Color c = g.getColor();
+		g.setColor(Color.GRAY);
 		g.fillRect(x, y, w, h);
+		g.setColor(c);
 	}
 	
 	public Rectangle getRect(){
