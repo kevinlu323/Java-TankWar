@@ -1,7 +1,9 @@
 package com.linkui.tank;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
 import java.util.ArrayList;
 
 public class TankClient extends Frame{
@@ -71,7 +73,7 @@ public class TankClient extends Frame{
 		g.drawImage(offScreenImage, 0, 0, null);
 	}
 	public void launchFrame(){
-		for(int i =0; i< 15; i++){
+		for(int i =0; i< Integer.parseInt(PropertyMgr.getProperty("initTankCount")); i++){
 			tanks.add(new Tank(52*(i), 50, this,false, Direction.D));
 		}
 		this.setLocation(400, 300);
@@ -98,7 +100,7 @@ public class TankClient extends Frame{
 			while(true){
 				repaint();
 				try {
-					Thread.sleep(17);
+					Thread.sleep(20);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -113,7 +115,7 @@ public class TankClient extends Frame{
 		public void keyReleased(KeyEvent e) {
 			myTank.keyReleased(e);
 			if(e.getKeyCode() == KeyEvent.VK_R){
-				for(int i =0; i< 15; i++){
+				for(int i =0; i< Integer.parseInt(PropertyMgr.getProperty("reLiveTankCount")); i++){
 					tanks.add(new Tank(52*(i), 50, TankClient.this,false, Direction.D));
 				}
 			}
