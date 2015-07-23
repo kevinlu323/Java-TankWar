@@ -25,6 +25,7 @@ public class Blood {
 			if(reLiveDelay-- == 0){
 				live = true;
 				reLiveDelay = 400;
+				move();
 			}
 			return;
 		}

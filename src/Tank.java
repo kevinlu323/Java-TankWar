@@ -22,7 +22,7 @@ public class Tank {
 	
 	private int x, y;
 	private boolean bL = false, bU = false, bR = false, bD = false;
-	enum Direction {L, LU, U, RU, R, RD, D, LD, STOP}
+	
 	private Direction dir = Direction.STOP;
 	private Direction ptDir = Direction.D;
 	

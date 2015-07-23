@@ -8,7 +8,7 @@ public class TankClient extends Frame{
 	public static final int GAME_WIDTH = 800;
 	public static final int GAME_HEIGHT = 600;
 	
-	Tank myTank = new Tank(400,500,this,true, Tank.Direction.STOP);
+	Tank myTank = new Tank(400,500,this,true, Direction.STOP);
 	Blood b = new Blood();
 	
 	List<Missile> missiles = new ArrayList<Missile>();
@@ -71,7 +71,7 @@ public class TankClient extends Frame{
 	}
 	public void launchFrame(){
 		for(int i =0; i< 15; i++){
-			tanks.add(new Tank((50 +40*(i+1)), 50, this,false, Tank.Direction.D));
+			tanks.add(new Tank((50 +40*(i+1)), 50, this,false, Direction.D));
 		}
 		this.setLocation(400, 300);
 		this.setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -113,7 +113,7 @@ public class TankClient extends Frame{
 			myTank.keyReleased(e);
 			if(e.getKeyCode() == KeyEvent.VK_R){
 				for(int i =0; i< 15; i++){
-					tanks.add(new Tank((50 +40*(i+1)), 50, TankClient.this,false, Tank.Direction.D));
+					tanks.add(new Tank((50 +40*(i+1)), 50, TankClient.this,false, Direction.D));
 				}
 			}
 		}
